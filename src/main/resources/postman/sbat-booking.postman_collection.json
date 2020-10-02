@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "f4994151-07bc-41eb-887d-1c67ceac2b9f",
+		"name": "sbat-booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "submitBooking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bookingToken\": \"\",\n    \"bookingType\" : \"Archanam\",\n    \"fullName\" : \"Fish Fin\",\n    \"email\" : \"fish@gmail.com\",\n    \"phoneNo\" : 9369991212,\n    \"bookingSlot\" : \"2020-09-29T20:30:00.0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/submitBooking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"submitBooking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSlots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/get-slots?selectedDate=2020-09-28%2000:00:00.0&bookingType=Archanam",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"get-slots"
+					],
+					"query": [
+						{
+							"key": "selectedDate",
+							"value": "2020-09-28%2000:00:00.0"
+						},
+						{
+							"key": "bookingType",
+							"value": "Archanam"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
