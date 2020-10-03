@@ -49,6 +49,7 @@ public class BookingApi {
 //		return bookingSvc.getSlot(ts);
 //	}
 	
+	// mapping to get the available slots based on selected date and booking type
 	
 	@RequestMapping(value="/get-slots" , method=RequestMethod.GET)
 	public @ResponseBody List<String> getSlots(@RequestParam("selectedDate") String selectedDate, @RequestParam("bookingType") String bookingType) throws ParseException {
@@ -63,6 +64,8 @@ public class BookingApi {
 		
 		
 	}
+	
+	// will generate a token for booking upon submission of the booking data
 	
 	@PostMapping("/submitBooking")
 	public String submitBooking(@RequestBody Booking booking) {
