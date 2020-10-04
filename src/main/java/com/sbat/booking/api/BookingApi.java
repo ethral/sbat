@@ -72,12 +72,12 @@ public class BookingApi {
 		
 		
 		
-		Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(booking.getBookingSlot());
-	    calendar.add(Calendar.HOUR, 4);
-	    Timestamp ts = new Timestamp(calendar.getTimeInMillis());
+//		Calendar calendar = Calendar.getInstance();
+//	    calendar.setTime(booking.getBookingSlot());
+//	    calendar.add(Calendar.HOUR, 4);
+//	    Timestamp ts = new Timestamp(calendar.getTimeInMillis());
 	    
-	    booking.setBookingSlot(ts);
+	    booking.setBookingSlot(booking.getBookingSlot());
 		
 		String token = bookingSvc.getToken(booking.getFullName(), booking.getBookingSlot());
 		
