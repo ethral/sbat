@@ -65,10 +65,23 @@ public class BookingApi {
 		
 	}
 	
+	
+	@RequestMapping(value="/get-bookings" , method=RequestMethod.GET)
+	public @ResponseBody List<Booking> getBookings() throws ParseException {
+		
+		
+		
+		return bookingSvc.getBookings();
+		
+		
+	}
+	
+	
+	
 	// will generate a token for booking upon submission of the booking data
 	
 	@PostMapping("/submitBooking")
-	public String submitBooking(@RequestBody Booking booking) {
+	public Booking submitBooking(@RequestBody Booking booking) {
 		
 		
 		
@@ -87,9 +100,8 @@ public class BookingApi {
 		
 		savedBooking = bookingSvc.submitBooking(booking);
 		
-		String savedToken = savedBooking.getBookingToken();
 		
-		return savedToken ;
+		return savedBooking ;
 	}
 	
 

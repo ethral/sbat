@@ -22,9 +22,9 @@ public class BookingService {
 
 
 
-	final List<String> weekdayHours=Arrays.asList("9:00-10:00","10:00-11:00","11:00-11:30","18:30-19:00","19:00-20:00","20:00-20:30");
+	final List<String> weekdayHours=Arrays.asList("09:00-10:00","10:00-11:00","11:00-11:30","18:30-19:00","19:00-20:00","20:00-20:30");
 
-	final List<String> weekendHours=Arrays.asList("9:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00",
+	final List<String> weekendHours=Arrays.asList("09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00",
 			"14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-20:30");
 
 
@@ -203,6 +203,13 @@ public class BookingService {
 		System.out.println("db call returned no. of records: " + selectedDayBookings.size());
 
 		return selectedDayBookings;
+	}
+	
+	
+	public List<Booking> getBookings(){
+		
+		
+		return bookingRepo.findAll();
 	}
 
 
