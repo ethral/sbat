@@ -4,12 +4,14 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +20,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbat.booking.dto.MailRequest;
+import com.sbat.booking.dto.MailResponse;
 import com.sbat.booking.model.Booking;
 import com.sbat.booking.service.BookingService;
+import com.sbat.booking.service.MailService;
 
 @CrossOrigin
 @RestController
 public class BookingApi {
 	
+	Logger logger = LoggerFactory.getLogger(BookingApi.class);
+	
 	@Autowired
 	private BookingService bookingSvc;
+	
+	@Autowired
+	private MailService mailSvc;
 	
 	
 //	@GetMapping("/slot")
@@ -101,7 +111,48 @@ public class BookingApi {
 		savedBooking = bookingSvc.submitBooking(booking);
 		
 		
+		Map<String,Object> model = new HashMap<>();
+		MailRequest mailRequest = new MailRequest();
+		
+		model.put("token",savedBooking.getBookingToken());
+		model.put("slot",savedBooking.getBookingSlot());
+		model.put("name",savedBooking.getFullName());
+		model.put("service",savedBooking.getBookingType());
+		
+		mailRequest.setTo("abhinavsudam1@gmail.com");
+		mailRequest.setFrom("panda@hungrypanda.us");
+		mailRequest.setSubject("Seva Booking Confirmation");
+		
+		// creating a new thread so that the code does not wait on the sending out of the email
+		
+		new Thread(() -> {
+			
+			MailResponse mailResp = new MailResponse();
+			
+			mailResp = mailSvc.sendEmail(mailRequest, model);
+		    
+		    logger.info("mail status: " + mailResp.getMessage());
+			
+		}).start();
+		
+	    
+		
+		
 		return savedBooking ;
+	}
+	
+	
+	// test mapping
+	
+	
+	@PostMapping("/send-email")
+	public MailResponse sendEmail(@RequestBody MailRequest request) {
+		
+		Map<String,Object> model = new HashMap<>();
+		model.put("token", "JE92839-33");
+		
+		return mailSvc.sendEmail(request, model);
+		
 	}
 	
 
