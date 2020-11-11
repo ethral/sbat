@@ -44,6 +44,7 @@ public class MailService {
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
 			helper.setTo(request.getTo());
+			helper.setBcc(request.getBcc());
 			helper.setText(html, true);
 			helper.setSubject(request.getSubject());
 			helper.setFrom(request.getFrom());
